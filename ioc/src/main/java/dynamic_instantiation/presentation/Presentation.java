@@ -31,7 +31,7 @@ public class Presentation {
             Instantiation via setter
              */
             IMetier metier = (IMetier) classMetier.getConstructor().newInstance();
-            Method setDao = classMetier.getMethod("setDao", IDao.class);
+            Method setDao = classMetier.getDeclaredMethod("setDao", IDao.class);
             setDao.invoke(metier, dao);
 
             //Output
