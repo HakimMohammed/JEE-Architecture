@@ -5,6 +5,7 @@
 <!--    <bean id="dao" class="spring_xml.dao.DaoImpl"></bean>-->
     <bean id="dao" class="spring_xml.extensions.DaoImplv2"></bean>
     <bean id="metier" class="spring_xml.metier.MetierImpl">
-        <property name="dao" ref="dao"></property>
+<!--        <property name="dao" ref="dao"></property>-->
+        <constructor-arg ref="dao"></constructor-arg>
     </bean>
 </beans>
