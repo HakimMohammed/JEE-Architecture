@@ -1,0 +1,4 @@
+{
+  "dao": "dynamic_instantiation.dao.DaoImpl",
+  "metier": "dynamic_instantiation.metier.MetierImpl"
+}

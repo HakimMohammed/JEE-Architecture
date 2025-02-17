@@ -1,6 +1,6 @@
-package static_instantiation.extensitons;
+package dynamic_instantiation.extensions;
 
-import static_instantiation.dao.IDao;
+import dynamic_instantiation.dao.IDao;
 
 public class DaoImplv2 implements IDao {
     @Override

@@ -1,8 +1,6 @@
 package static_instantiation.presentation;
 
-import static_instantiation.dao.DaoImpl;
-import static_instantiation.dao.IDao;
-import static_instantiation.extensitons.DaoImplv2;
+import static_instantiation.extensions.DaoImplv2;
 import static_instantiation.metier.MetierImpl;
 
 public class Presentation {
