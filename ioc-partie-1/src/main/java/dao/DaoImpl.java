@@ -3,6 +3,6 @@ package dao;
 public class DaoImpl implements IDao {
     @Override
     public double getData() {
-        return 0;
+        return 10.5;
     }
 }
