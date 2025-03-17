@@ -24,7 +24,7 @@ public class Application {
                 Patient patient = Patient.builder()
                         .name(name)
                         .email(name + "@gmail.com")
-                        .isSick(false)
+                        .isSick(Math.random() > 0.5)
                         .birthDate(new Date())
                         .build();
                 patientService.save(patient);

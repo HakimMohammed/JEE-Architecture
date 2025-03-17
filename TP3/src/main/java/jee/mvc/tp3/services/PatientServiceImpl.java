@@ -5,6 +5,7 @@ import jee.mvc.tp3.repositories.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -17,5 +18,10 @@ public class PatientServiceImpl implements PatientService {
     public Patient save(Patient patient) {
         patient.setId(UUID.randomUUID().toString());
         return patientRepository.save(patient);
+    }
+
+    @Override
+    public List<Patient> getPatients() {
+        return patientRepository.findAll();
     }
 }
