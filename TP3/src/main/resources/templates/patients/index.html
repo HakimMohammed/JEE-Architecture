@@ -11,6 +11,12 @@
     <div class="card">
         <div class="card-header">Liste des patients</div>
         <div class="card-body">
+
+            <form class="input-group w-25 mb-5 ms-auto" method="get" th:action="@{patients}">
+                <input type="search" name="keyword" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+            </form>
+
             <table class="table">
                 <thead>
                 <tr>
@@ -31,9 +37,16 @@
                 </tr>
                 </tbody>
             </table>
-            <ul class="pagination">
+
+            <ul class="pagination w-25 mt-5 ms-auto ">
+                <li th:class="${currentPage == 0 ? 'page-item disabled' : 'page-item'}">
+                    <a th:class="${currentPage == 0 ? 'page-link disabled' : 'page-link'}" th:href="@{/patients(page=${currentPage - 1})}" th:text="Previous"></a>
+                </li>
                 <li th:each="page,status : ${pages}">
-                    <a class="page-link" th:href="@{/patients(page=${status.index})}" th:text="${status.index}"></a>
+                    <a th:class="${currentPage == status.index ? 'page-link active' : 'page-link'}" th:href="@{/patients(page=${status.index})}" th:text="${status.index}"></a>
+                </li>
+                <li th:class="${currentPage == lastPage ? 'page-item disabled' : 'page-item'}">
+                    <a th:class="${currentPage == lastPage ? 'page-link disabled' : 'page-link'}" th:href="@{/patients(page=${currentPage + 1})}" th:text="Next"></a>
                 </li>
             </ul>
         </div>
