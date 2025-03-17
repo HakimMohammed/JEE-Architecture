@@ -1,5 +1,6 @@
 package jee.orm.tp2part2.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,8 +14,8 @@ import java.util.Date;
 @Builder
 @ToString
 public class Appointment {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String id;
 
     private Date dateAppointment;
     private Date timeAppointment;
@@ -23,6 +24,7 @@ public class Appointment {
     private Doctor doctor;
 
     @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // To avoid infinite recursion
     private Patient patient;
 
     @OneToOne

@@ -1,5 +1,6 @@
 package jee.orm.tp2part2.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,13 +14,14 @@ import java.util.Collection;
 @Builder
 @ToString
 public class Doctor {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String id;
 
     private String name;
     private String email;
     private String speciality;
 
-    @OneToMany
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Collection<Appointment> appointments;
 }

@@ -8,12 +8,12 @@ import java.util.Collection;
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder @ToString
 public class Patient {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String id;
 
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private Collection<Appointment> appointments;
 }

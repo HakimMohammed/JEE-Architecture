@@ -13,12 +13,12 @@ import java.util.Date;
 @Builder
 @ToString
 public class Consultation {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String id;
 
     private Date dateConsultation;
     private String reportConsultation;
 
-    @OneToOne
+    @OneToOne(mappedBy = "consultation")
     private Appointment appointment;
 }
