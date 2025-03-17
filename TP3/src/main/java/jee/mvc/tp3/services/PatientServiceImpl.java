@@ -33,4 +33,11 @@ public class PatientServiceImpl implements PatientService {
         Pageable pageable = PageRequest.of(page, size);
         return patientRepository.findByNameContaining(keyword, pageable);
     }
+
+    @Override
+    public Patient deletePatient(String id) {
+        Patient patient = patientRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + id));
+        patientRepository.delete(patient);
+        return patient;
+    }
 }

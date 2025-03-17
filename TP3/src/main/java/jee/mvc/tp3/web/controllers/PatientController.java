@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -26,6 +28,13 @@ public class PatientController {
         model.addAttribute("pages", new int[patients.getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("lastPage", patients.getTotalPages() - 1);
+        model.addAttribute("keyword", keyword);
         return "patients/index";
+    }
+
+    @GetMapping("/delete")
+    public String delete(String id) {
+        patientService.deletePatient(id);
+        return "redirect:/patients";
     }
 }
