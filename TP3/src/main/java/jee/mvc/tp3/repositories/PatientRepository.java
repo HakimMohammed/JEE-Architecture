@@ -1,0 +1,7 @@
+package jee.mvc.tp3.repositories;
+
+import jee.mvc.tp3.entities.Patient;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PatientRepository extends JpaRepository<Patient, String> {
+}
