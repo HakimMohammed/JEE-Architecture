@@ -20,7 +20,7 @@ public class Application {
     @Bean
     CommandLineRunner start(PatientService patientService) {
         return args -> {
-            Stream.of("Amine", "Mohamed", "Yassine", "Oussama", "Hassan").forEach(name -> {
+            Stream.of("Amine", "Mohamed", "Yassine", "Oussama", "Hassan", "John", "Jack", "Mark", "Bl3id", "Omar").forEach(name -> {
                 Patient patient = Patient.builder()
                         .name(name)
                         .email(name + "@gmail.com")

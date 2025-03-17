@@ -3,6 +3,8 @@ package jee.mvc.tp3.services;
 import jee.mvc.tp3.entities.Patient;
 import jee.mvc.tp3.repositories.PatientRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<Patient> getPatients() {
-        return patientRepository.findAll();
+    public Page<Patient> getPatients(int page, int size) {
+        return patientRepository.findAll(PageRequest.of(page, size));
     }
 }
