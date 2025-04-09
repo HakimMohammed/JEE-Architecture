@@ -6,17 +6,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/patients")
 public class PatientController {
     private PatientService patientService;
 
-    @GetMapping("/patients")
+    @GetMapping
     public String getPatients(Model model,
                               @RequestParam(name = "page", defaultValue = "0") int page,
                               @RequestParam(name = "size", defaultValue = "5") int size,
@@ -30,7 +28,20 @@ public class PatientController {
         return "patients/index";
     }
 
-    @DeleteMapping("/patients/{id}")
+    @PostMapping
+    public String addPatient(@ModelAttribute Patient patient) {
+        patientService.addPatient(patient);
+        return "redirect:/patients";
+    }
+
+    @PutMapping
+    public String editPatient(@ModelAttribute Patient patient) {
+        System.out.println(patient);
+        patientService.editPatient(patient);
+        return "redirect:/patients";
+    }
+
+    @DeleteMapping("/{id}")
     public String deletePatient(@PathVariable String id) {
         patientService.deletePatient(id);
         return "redirect:/patients";

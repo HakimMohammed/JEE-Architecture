@@ -3,7 +3,9 @@ package jee.mvc.tp3.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,6 +16,7 @@ public class Patient {
 
     private String name;
     private String email;
-    private Date birthDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
     private boolean isSick;
 }

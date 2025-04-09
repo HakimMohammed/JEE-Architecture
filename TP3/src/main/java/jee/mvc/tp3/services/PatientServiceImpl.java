@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,9 +17,9 @@ public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
 
     @Override
-    public Patient save(Patient patient) {
+    public void addPatient(Patient patient) {
         patient.setId(UUID.randomUUID().toString());
-        return patientRepository.save(patient);
+        patientRepository.save(patient);
     }
 
     @Override
@@ -35,9 +34,18 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient deletePatient(String id) {
+    public Patient editPatient(Patient patient) {
+        Patient existingPatient = patientRepository.findById(patient.getId()).orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + patient.getId()));
+        existingPatient.setName(patient.getName());
+        existingPatient.setEmail(patient.getEmail());
+        existingPatient.setBirthDate(patient.getBirthDate());
+        existingPatient.setSick(patient.isSick());
+        return patientRepository.save(existingPatient);
+    }
+
+    @Override
+    public void deletePatient(String id) {
         Patient patient = patientRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + id));
         patientRepository.delete(patient);
-        return patient;
     }
 }
