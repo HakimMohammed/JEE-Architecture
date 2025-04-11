@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.UUID;
 
 @Service
@@ -25,6 +24,11 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Page<Patient> getPatients(int page, int size) {
         return patientRepository.findAll(PageRequest.of(page, size));
+    }
+
+    @Override
+    public Patient getPatientById(String id) {
+        return patientRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + id));
     }
 
     @Override

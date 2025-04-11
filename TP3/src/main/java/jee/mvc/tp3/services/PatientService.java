@@ -9,4 +9,5 @@ public interface PatientService {
     Page<Patient> searchPatients(String keyword, int page, int size);
     void deletePatient(String id);
     Patient editPatient(Patient patient);
+    Patient getPatientById(String id);
 }

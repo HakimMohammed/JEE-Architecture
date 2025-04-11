@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="patients/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire: Modifier Patient</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="w-75 m-auto mt-xl-5">
+        <div class="card">
+            <div class="card-header">Edit un Patient</div>
+                <form th:action="@{/patients}" method="post">
+                    <input type="hidden" name="_method" value="PUT">
+
+                    <div class="card-body d-flex flex-column gap-2">
+
+                        <label for="id" class="form-label">Identifiant</label>
+                        <input id="id" class="form-control" type="text" name="id" th:value="${patient.id}" readonly>
+
+                        <label for="name" class="form-label">Nom</label>
+                        <input id="name" type="text" name="name" class="form-control mb-2" placeholder="Name" required th:value="${patient.name}">
+                        <span th:errors="${patient.name}"></span>
+
+
+                        <label for="email" class="form-label">Email</label>
+                        <input id="email" type="email" name="email" class="form-control mb-2" placeholder="Email" required th:value="${patient.email}">
+                        <span th:errors="${patient.email}"></span>
+
+
+                        <label for="birthDate" class="form-label">Date de Naissance</label>
+                        <input id="birthDate" type="date" name="birthDate" class="form-control mb-2" placeholder="Birth Date" required th:value="${patient.birthDate}">
+                        <span th:errors="${patient.birthDate}"></span>
+
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="isSick" id="isSick" th:checked="${patient.isSick}">
+                            <label class="form-check-label" for="isSick">Sick</label>
+                        </div>
+
+                    <div class="ms-auto w-full">
+                        <button type="submit" class="btn btn-success fw-bold">Save Changes</button>
+                        <button type="button" class="btn btn-secondary">
+                            <a href="/patients" class="text-white fw-bold text-decoration-none">Cancel</a>
+                        </button>
+                    </div>
+                        </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

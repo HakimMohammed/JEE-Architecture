@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PatientRepository extends JpaRepository<Patient, String> {
     Page<Patient> findByNameContaining(String keyword, Pageable pageable);
+    Patient findPatientById(String id);
 }

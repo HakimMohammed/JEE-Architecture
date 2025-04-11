@@ -9,7 +9,6 @@
     <meta charset="UTF-8">
     <title>Patients</title>
     <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
-
 </head>
 <body>
 <div layout:fragment="content">
@@ -24,12 +23,7 @@
                         <input type="search" name="keyword" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" th:value="${keyword}"/>
                         <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
                     </form>
-
-                    <!-- Create Patient button -->
-                    <button class="btn btn-success mb-3 h-25" data-bs-toggle="modal" data-bs-target="#addPatientModal">New Patient</button>
-
                 </div>
-
 
                 <table class="table">
                     <thead>
@@ -51,37 +45,9 @@
                         <td th:text="${patient.isSick} ? 'Sick' : 'Healthy'"></td>
 
                         <td class="d-flex gap-2">
-
-                            <button class="btn btn-warning" data-bs-toggle="modal" th:attr="data-bs-target='#editModal__' + ${patient.id}">Edit</button>
-                            <!-- Edit Modal -->
-                            <div class="modal fade" th:id="'editModal__' + ${patient.id}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <form th:action="@{/patients}" method="post">
-                                            <input type="hidden" name="_method" value="PUT">
-                                            <input type="hidden" name="id" th:value="${patient.id}" />
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Edit Patient</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <input type="text" name="name" th:value="${patient.name}" class="form-control mb-2" placeholder="Name" required>
-                                                <input type="email" name="email" th:value="${patient.email}" class="form-control mb-2" placeholder="Email" required>
-                                                <input type="date" name="birthDate" th:value="${patient.birthDate}" class="form-control mb-2" required>
-                                                <div class="form-check">
-                                                    <input type="hidden" name="isSick" value="false" />
-                                                    <input class="form-check-input" type="checkbox" name="isSick" value="true" th:checked="${patient.isSick}">
-                                                    <label class="form-check-label">Sick</label>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-success">Save Changes</button>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                            <button class="btn btn-warning">
+                                <a th:href="@{'/patients/edit/' + ${patient.id}}" class="text-white fw-bold text-decoration-none">Edit</a>
+                            </button>
                             <form th:action="@{/patients/{id}(id=${patient.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this patient?');">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -95,13 +61,11 @@
                     <li th:if="${currentPage > 0}">
                         <a class="page-link" th:href="@{/patients(page=${currentPage - 1}, keyword=${keyword})}">Prev</a>
                     </li>
-
                     <li th:each="i : ${#numbers.sequence(T(java.lang.Math).max(0, currentPage - 1), T(java.lang.Math).min(totalPages - 1, currentPage + 1))}">
                         <a th:class="${i == currentPage ? 'page-link active' : 'page-link'}"
                            th:href="@{/patients(page=${i}, keyword=${keyword})}"
                            th:text="${i}"></a>
                     </li>
-
                     <li th:if="${currentPage < totalPages - 1}">
                         <a class="page-link" th:href="@{/patients(page=${currentPage + 1}, keyword=${keyword})}">Next</a>
                     </li>
@@ -109,40 +73,9 @@
 
             </div>
         </div>
-
-        <!-- Create Modal -->
-        <div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form th:action="@{/patients}" method="post">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addPatientModalLabel">Add New Patient</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Form fields go here -->
-                            <input type="text" name="name" class="form-control mb-2" placeholder="Name" required>
-                            <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
-                            <input type="date" name="birthDate" class="form-control mb-2" placeholder="Birth Date" required>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="isSick" id="isSick">
-                                <label class="form-check-label" for="isSick">Sick</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </div>
 
 <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
