@@ -25,6 +25,7 @@ public class PatientController {
         model.addAttribute("currentPage", page);
         model.addAttribute("lastPage", patients.getTotalPages() - 1);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("totalPages", patients.getTotalPages());
         return "patients/index";
     }
 
