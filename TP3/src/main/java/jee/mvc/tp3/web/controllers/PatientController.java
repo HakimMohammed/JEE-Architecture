@@ -29,7 +29,8 @@ public class PatientController {
     }
 
     @GetMapping("/add")
-    public String ajouterPatient() {
+    public String ajouterPatient(Model model) {
+        model.addAttribute("patient", new Patient());
         return "patients/add-form";
     }
 
@@ -41,14 +42,14 @@ public class PatientController {
     }
 
     @PostMapping
-    public String addPatient(@ModelAttribute @Valid Patient patient, BindingResult bindingResult) {
+    public String addPatient(@Valid @ModelAttribute Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patients/add-form";
         patientService.addPatient(patient);
         return "redirect:/patients";
     }
 
     @PutMapping
-    public String editPatient(Model model, @Valid Patient patient, BindingResult bindingResult) {
+    public String editPatient(@Valid @ModelAttribute Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patients/edit-form";
         patientService.editPatient(patient);
         return "redirect:/patients";

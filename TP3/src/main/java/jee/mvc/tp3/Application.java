@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @SpringBootApplication
@@ -17,15 +18,15 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    //@Bean
+    @Bean
     CommandLineRunner start(PatientService patientService) {
         return args -> {
-            Stream.of("Amine", "Mohamed", "Yassine", "Oussama", "Hassan", "John", "Jack", "Mark", "Bl3id", "Omar").forEach(name -> {
+            Stream.of("Amine", "Mohamed", "Yassine", "Oussama", "Hassan", "JohnQT", "JackSparrow", "MarkZuckerberg", "Bl3id", "OmarO3abd").forEach(name -> {
                 Patient patient = Patient.builder()
                         .name(name)
                         .email(name + "@gmail.com")
-                        .isSick(Math.random() > 0.5)
-                        .birthDate(LocalDate.now())
+                        .sick(false)
+                        .birthDate(LocalDate.of(1990 + (int) (Math.random() * 20), 1 + (int) (Math.random() * 12), 1 + (int) (Math.random() * 28)))
                         .build();
                 patientService.addPatient(patient);
             });

@@ -25,7 +25,7 @@
 
                         <label for="name" class="form-label">Nom</label>
                         <input id="name" type="text" name="name" class="form-control mb-2" placeholder="Name" required th:value="${patient.name}">
-                        <span th:errors="${patient.name}"></span>
+                        <span class="text-danger py-1 fw-bold" th:errors="${patient.name}"></span>
 
 
                         <label for="email" class="form-label">Email</label>

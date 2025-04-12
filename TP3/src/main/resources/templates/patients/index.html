@@ -42,7 +42,7 @@
                         <td th:text="${patient.name}"></td>
                         <td th:text="${patient.email}"></td>
                         <td th:text="${patient.birthDate}"></td>
-                        <td th:text="${patient.isSick} ? 'Sick' : 'Healthy'"></td>
+                        <td th:text="${patient.isSick()} ? 'Sick' : 'Healthy'"></td>
 
                         <td class="d-flex gap-2">
                             <button class="btn btn-warning">
