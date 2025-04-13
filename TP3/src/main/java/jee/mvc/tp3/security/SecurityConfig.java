@@ -31,6 +31,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+                httpSecurity.authorizeHttpRequests(authorize ->
+                authorize.requestMatchers("/webjars/**").permitAll()
+        );
         httpSecurity.formLogin(
                 formLoginConfigurer ->
                         formLoginConfigurer.loginPage("/login").permitAll()
