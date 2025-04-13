@@ -29,13 +29,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.formLogin(
+                formLoginConfigurer ->
+                        formLoginConfigurer.loginPage("/login").permitAll()
+        );
         httpSecurity.authorizeHttpRequests(authorize ->
                 authorize.requestMatchers("/add").hasRole("ADMIN")
                         .requestMatchers("/edit/**").hasRole("ADMIN")
+                        .requestMatchers("/patient").hasRole("ADMIN")
                         .requestMatchers("/**").permitAll()
         );
-        httpSecurity.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated());
+        httpSecurity.exceptionHandling( exceptionHandlingConfigurer ->
+                exceptionHandlingConfigurer.accessDeniedPage("/403")
+        );
+
         return httpSecurity.build();
     }
 }

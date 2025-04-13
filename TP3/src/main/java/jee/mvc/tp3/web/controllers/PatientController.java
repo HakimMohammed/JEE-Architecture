@@ -41,21 +41,21 @@ public class PatientController {
         return "patients/edit-form";
     }
 
-    @PostMapping
+    @PostMapping("/patient")
     public String addPatient(@Valid @ModelAttribute Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patients/add-form";
         patientService.addPatient(patient);
         return "redirect:/";
     }
 
-    @PutMapping
+    @PutMapping("/patient")
     public String editPatient(@Valid @ModelAttribute Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patients/edit-form";
         patientService.editPatient(patient);
         return "redirect:/";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("patient/{id}")
     public String deletePatient(@PathVariable String id) {
         patientService.deletePatient(id);
         return "redirect:/";
