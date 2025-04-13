@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/patients")
+@RequestMapping("/")
 public class PatientController {
     private PatientService patientService;
 
@@ -45,19 +45,19 @@ public class PatientController {
     public String addPatient(@Valid @ModelAttribute Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patients/add-form";
         patientService.addPatient(patient);
-        return "redirect:/patients";
+        return "redirect:/";
     }
 
     @PutMapping
     public String editPatient(@Valid @ModelAttribute Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patients/edit-form";
         patientService.editPatient(patient);
-        return "redirect:/patients";
+        return "redirect:/";
     }
 
     @DeleteMapping("/{id}")
     public String deletePatient(@PathVariable String id) {
         patientService.deletePatient(id);
-        return "redirect:/patients";
+        return "redirect:/";
     }
 }

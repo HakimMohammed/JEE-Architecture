@@ -15,7 +15,7 @@
     <div class="w-75 m-auto mt-xl-5">
         <div class="card">
             <div class="card-header">Ajouter un Patient</div>
-            <form th:action="@{/patients}" method="post" th:object="${patient}">
+            <form th:action="@{/}" method="post" th:object="${patient}">
                 <div class="card-body d-flex flex-column gap-2">
 
                     <label for="name" class="form-label">Nom</label>
@@ -38,7 +38,7 @@
                     <div class="ms-auto w-full">
                         <button type="submit" class="btn btn-success fw-bold">Save</button>
                         <button type="button" class="btn btn-secondary">
-                            <a href="/patients" class="text-white fw-bold text-decoration-none">Cancel</a>
+                            <a href="/" class="text-white fw-bold text-decoration-none">Cancel</a>
                         </button>
                     </div>
                 </div>
