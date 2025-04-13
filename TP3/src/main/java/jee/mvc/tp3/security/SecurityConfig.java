@@ -30,6 +30,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.authorizeHttpRequests(authorize ->
+                authorize.requestMatchers("/add").hasRole("ADMIN")
+                        .requestMatchers("/edit/**").hasRole("ADMIN")
+                        .requestMatchers("/**").permitAll()
+        );
         httpSecurity.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated());
         return httpSecurity.build();
     }
