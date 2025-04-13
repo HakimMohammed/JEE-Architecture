@@ -5,6 +5,7 @@ import jee.mvc.tp3.entities.Patient;
 import jee.mvc.tp3.services.PatientService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,12 +30,14 @@ public class PatientController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String ajouterPatient(Model model) {
         model.addAttribute("patient", new Patient());
         return "patients/add-form";
     }
 
     @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String modifierPatient(@PathVariable String id, Model model) {
         Patient patient = patientService.getPatientById(id);
         model.addAttribute("patient", patient);
@@ -42,6 +45,7 @@ public class PatientController {
     }
 
     @PostMapping("/patient")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addPatient(@Valid @ModelAttribute Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patients/add-form";
         patientService.addPatient(patient);
@@ -49,6 +53,7 @@ public class PatientController {
     }
 
     @PutMapping("/patient")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editPatient(@Valid @ModelAttribute Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patients/edit-form";
         patientService.editPatient(patient);
@@ -56,6 +61,7 @@ public class PatientController {
     }
 
     @DeleteMapping("patient/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deletePatient(@PathVariable String id) {
         patientService.deletePatient(id);
         return "redirect:/";

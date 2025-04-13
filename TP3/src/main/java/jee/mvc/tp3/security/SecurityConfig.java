@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Autowired
@@ -23,7 +25,7 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(
                 User.withUsername("Hakim").password(passwordEncoder.encode("1234")).roles("USER").build(),
                 User.withUsername("Yacer").password(passwordEncoder.encode("1234")).roles("USER").build(),
-                User.withUsername("admin").password(passwordEncoder.encode("password")).roles("USER","ADMIN").build()
+                User.withUsername("admin").password(passwordEncoder.encode("password")).roles("USER", "ADMIN").build()
         );
     }
 
@@ -33,15 +35,19 @@ public class SecurityConfig {
                 formLoginConfigurer ->
                         formLoginConfigurer.loginPage("/login").permitAll()
         );
+//        httpSecurity.authorizeHttpRequests(authorize ->
+//                authorize.requestMatchers("/add").hasRole("ADMIN")
+//                        .requestMatchers("/edit/**").hasRole("ADMIN")
+//                        .requestMatchers("/patient").hasRole("ADMIN")
+//                        .requestMatchers("/**").permitAll()
+//        );
         httpSecurity.authorizeHttpRequests(authorize ->
-                authorize.requestMatchers("/add").hasRole("ADMIN")
-                        .requestMatchers("/edit/**").hasRole("ADMIN")
-                        .requestMatchers("/patient").hasRole("ADMIN")
-                        .requestMatchers("/**").permitAll()
+                authorize.anyRequest().authenticated()
         );
-        httpSecurity.exceptionHandling( exceptionHandlingConfigurer ->
+        httpSecurity.exceptionHandling(exceptionHandlingConfigurer ->
                 exceptionHandlingConfigurer.accessDeniedPage("/403")
         );
+        httpSecurity.rememberMe(Customizer.withDefaults());
 
         return httpSecurity.build();
     }
